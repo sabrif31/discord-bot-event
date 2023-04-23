@@ -9,7 +9,6 @@
     "build1": "rm -rf ./dist && npx tsc",
     "lint": "npx eslint --fix .",
     "start": "npm run build && node ./dist/index.js",
-    "deploy": "gh-pages -d dist",
     "publish": "yarn run build && gh-pages -d dist"
   },
   "dependencies": {
