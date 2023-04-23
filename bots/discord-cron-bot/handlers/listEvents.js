@@ -37,6 +37,7 @@ class DiscordEvents {
     }
     list_guild_events() {
         return __awaiter(this, void 0, void 0, function* () {
+            console.log("TEST");
             const event_retrieve_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events${this.query_params}`;
             try {
                 const response = yield (0, node_fetch_1.default)(event_retrieve_url, {
