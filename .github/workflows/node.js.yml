@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "gh-pages" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "gh-pages" ]
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -26,4 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: node index.js
+    - run: npm i
+    - run: npm run build1
+    - run: node ./dist/index.js
