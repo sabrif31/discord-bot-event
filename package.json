@@ -1,0 +1,36 @@
+{
+  "name": "create-discord-bot",
+  "version": "1.0.0",
+  "description": "A module-based Discord bot template.",
+  "main": "./dist/index.js",
+  "homepage": "https://sabrif31.github.io/get-heroes",
+  "scripts": {
+    "build": "rmdir /s /q \"./dist\"  && npx tsc",
+    "build1": "rm -rf ./dist && npx tsc",
+    "lint": "npx eslint --fix .",
+    "start": "npm run build && node ./dist/index.js",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "cron": "1.8.2",
+    "discord-bot-core-client": "^0.0.4",
+    "dotenv": "^10.0.0",
+    "node-fetch": "2"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/cron": "1.7.3",
+    "@types/node": "^16.6.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": ">=16.6.0",
+    "npm": ">=7.0.0"
+  }
+}
