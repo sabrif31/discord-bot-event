@@ -12,6 +12,10 @@ import {
 */
 import fetch from "node-fetch";
 
+const DISCORD_BOT_TOKEN =
+  "MTA5OTQ5NTQzMTg2MTQ0ODc3Ng.GfikA1.AcyqE33nFv4DjZIVYxT5hZqqHF5B7Lq8Unc-3I";
+const GUILD_ID = "1098285892503867442";
+
 type HeadersType = {
   Authorization: string;
   "User-Agent": string;
@@ -40,7 +44,7 @@ class DiscordEvents {
   constructor() {
     this.base_api_url = "https://discord.com/api/v9";
     this.auth_headers = {
-      Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+      Authorization: `Bot ${DISCORD_BOT_TOKEN}`, // process.env.
       "User-Agent":
         "DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch",
       "Content-Type": "application/json",
@@ -50,7 +54,7 @@ class DiscordEvents {
 
   async list_guild_events(): Promise<any> {
     console.log("TEST");
-    const event_retrieve_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events${this.query_params}`;
+    const event_retrieve_url = `${this.base_api_url}/guilds/${GUILD_ID}/scheduled-events${this.query_params}`;
     try {
       const response = await fetch(event_retrieve_url, {
         headers: this.auth_headers,
@@ -79,7 +83,7 @@ class DiscordEvents {
     event_privacy_level = 2,
     channel_id = null,
   }: EventCreateType): Promise<any> {
-    const event_create_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events`;
+    const event_create_url = `${this.base_api_url}/guilds/${GUILD_ID}/scheduled-events`;
     const event_data = JSON.stringify({
       name: event_name,
       privacy_level: event_privacy_level,

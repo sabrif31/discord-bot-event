@@ -12,6 +12,8 @@ import { Config, CronRuleItem, Policy, Rule } from "../types";
 import config from "../config.json";
 import DiscordEvents from "./listEvents";
 
+const GUILD_ID = "1098285892503867442";
+
 const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -87,7 +89,7 @@ class CronBot {
           month: "long",
           day: "numeric",
         }), // "samedi 22 avril 2023",
-        value: `[\`${eventName}\`](https://discord.com/events/${process.env.GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
+        value: `[\`${eventName}\`](https://discord.com/events/${GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
         inline: false,
       };
     });
