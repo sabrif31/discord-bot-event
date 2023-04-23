@@ -3,18 +3,20 @@
   "version": "1.0.0",
   "description": "A module-based Discord bot template.",
   "main": "./dist/index.js",
-  "homepage": "https://sabrif31.github.io/get-heroes",
+  "homepage": "https://sabrif31.github.io/discord-bot-event",
   "scripts": {
     "build": "rmdir /s /q \"./dist\"  && npx tsc",
     "build1": "rm -rf ./dist && npx tsc",
     "lint": "npx eslint --fix .",
     "start": "npm run build && node ./dist/index.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "publish": "yarn run build && gh-pages -d dist"
   },
   "dependencies": {
     "cron": "1.8.2",
     "discord-bot-core-client": "^0.0.4",
     "dotenv": "^10.0.0",
+    "gh-pages": "^5.0.0",
     "node-fetch": "2"
   },
   "devDependencies": {
