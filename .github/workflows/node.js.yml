@@ -28,4 +28,7 @@ jobs:
         cache: 'npm'
     - run: npm i
     - run: npm run build1
+      env:
+        DISCORD_BOT_TOKEN: "MTA5OTQ5NTQzMTg2MTQ0ODc3Ng.GfikA1.AcyqE33nFv4DjZIVYxT5hZqqHF5B7Lq8Unc-3I"
+        GUILD_ID: "1098285892503867442"
     - run: node ./dist/index.js
