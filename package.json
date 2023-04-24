@@ -6,13 +6,14 @@
   "homepage": "https://sabrif31.github.io/discord-bot-event",
   "scripts": {
     "build": "rm -rf ./dist && npx tsc",
-    "build:dev": "rmdir /s /q \"./dist\" && npx tsc && yarn run copy",
+    "build:dev": "rmdir /s /q \"./dist\" && npx tsc && yarn run copy &&  yarn run copy:proc",
     "copy": "copy /y \"package.public.json\" \"./dist/package.json\"",
+    "copy:proc": "copy /y \"Procfile\" \"./dist\"",
     "build1": "rm -rf ./dist && npx tsc",
     "lint": "npx eslint --fix .",
     "start": "yarn run build && node ./dist/index.js",
     "remove:dist": "rmdir /s /q \"./dist\"",
-    "deploy": "yarn run build && gh-pages -d dist",
+    "deploy": "yarn run build:dev && gh-pages -d dist",
     "prettier:server": "npx prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "dependencies": {
