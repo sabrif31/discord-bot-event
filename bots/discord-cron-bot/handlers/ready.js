@@ -41,6 +41,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var config_json_1 = __importDefault(require("../config.json"));
 var listEvents_1 = __importDefault(require("../../../utils/listEvents"));
+var date_fns_1 = require("date-fns");
+var locale_1 = require("date-fns/locale");
 var getRandomInt = function (min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -141,18 +143,8 @@ var CronBot = /** @class */ (function () {
                                 : event.name;
                             var start = defaultValue.substring(0, Number(name.length - 1));
                             var eventName = defaultValue.replace(start, name);
-                            // format(new Date(), "dd/MM/yyyy HH:mm:ss")
-                            var formatDistance = require('date-fns').formatDistance;
-                            var birthday = new Date('1956, 01, 28');
-                            var presentDay = new Date();
-                            console.log("Age: ".concat(formatDistance(presentDay, birthday)));
                             return {
-                                name: startDate.toLocaleDateString('fr-FR', {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                }),
+                                name: (0, date_fns_1.format)(startDate, 'EEEE dd MMMM yyyy', { locale: locale_1.fr }),
                                 value: "[`".concat(eventName, "`](https://discord.com/events/").concat(process.env.GUILD_ID, "/").concat(event.id, " \"Event\") <t:").concat(startDateUnixTimestamp, ":t> - <t:").concat(endDateUnixTimestamp, ":t>"),
                                 inline: false,
                             };
