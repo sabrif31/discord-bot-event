@@ -93,7 +93,13 @@ class CronBot {
           : event.name
       const start = defaultValue.substring(0, Number(name.length - 1))
       const eventName = defaultValue.replace(start, name)
+      // format(new Date(), "dd/MM/yyyy HH:mm:ss")
+      const { formatDistance } = require('date-fns')
 
+      const birthday = new Date('1956, 01, 28')
+      const presentDay = new Date()
+
+      console.log(`Age: ${formatDistance(presentDay, birthday)}`)
       return {
         name: startDate.toLocaleDateString('fr-FR', {
           weekday: 'long',
@@ -106,6 +112,7 @@ class CronBot {
       }
     })
 
+    const role = `<@&${process.env.ROLE_ID}>`
     this.event = {
       cronExpression: config.cronExpression,
       channelPolicy: 'single',
@@ -117,7 +124,7 @@ class CronBot {
           username: 'EVENTS',
           avatarURL:
             'https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp',
-          content: `<@&$${process.env.ROLE_ID as string}>`, // Role ID 1098285892503867448 1030970928538075146
+          content: role, // Role ID 1098285892503867448 1030970928538075146
           embeds: [
             {
               title: 'Event',

@@ -18,5 +18,4 @@ const client = new CoreClient({
     ],
   },
 })
-
 client.registerBotsIn(path.resolve(__dirname, 'bots')).start()
