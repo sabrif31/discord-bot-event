@@ -65,10 +65,8 @@ class CronBot {
 
     channelIds.forEach(async (channelId) => {
       const webhook = await this._getWebhook(channelId);
-
       messages.forEach(async (message) => {
         const newMessage = (await webhook.send(message)) as Message;
-
         reactions.forEach(async (reaction) => await newMessage.react(reaction));
       });
     });
