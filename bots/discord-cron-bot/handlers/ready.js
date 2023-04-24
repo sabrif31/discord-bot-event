@@ -121,7 +121,7 @@ var CronBot = /** @class */ (function () {
     };
     CronBot.prototype.getListEvents = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var bot, listEvents, weekEventList, fields;
+            var bot, listEvents, weekEventList, fields, role;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -141,6 +141,11 @@ var CronBot = /** @class */ (function () {
                                 : event.name;
                             var start = defaultValue.substring(0, Number(name.length - 1));
                             var eventName = defaultValue.replace(start, name);
+                            // format(new Date(), "dd/MM/yyyy HH:mm:ss")
+                            var formatDistance = require('date-fns').formatDistance;
+                            var birthday = new Date('1956, 01, 28');
+                            var presentDay = new Date();
+                            console.log("Age: ".concat(formatDistance(presentDay, birthday)));
                             return {
                                 name: startDate.toLocaleDateString('fr-FR', {
                                     weekday: 'long',
@@ -152,6 +157,7 @@ var CronBot = /** @class */ (function () {
                                 inline: false,
                             };
                         });
+                        role = "<@&".concat(process.env.ROLE_ID, ">");
                         this.event = {
                             cronExpression: config_json_1.default.cronExpression,
                             channelPolicy: 'single',
@@ -162,7 +168,7 @@ var CronBot = /** @class */ (function () {
                                 {
                                     username: 'EVENTS',
                                     avatarURL: 'https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp',
-                                    content: "<@&$".concat(process.env.ROLE_ID, ">"),
+                                    content: role,
                                     embeds: [
                                         {
                                             title: 'Event',
