@@ -1,0 +1,45 @@
+{
+  "name": "create-discord-bot",
+  "version": "1.0.0",
+  "description": "A module-based Discord bot template.",
+  "main": "./dist/index.js",
+  "homepage": "https://sabrif31.github.io/discord-bot-event",
+  "scripts": {
+    "build": "rmdir /s /q \"./dist\" && npx tsc && yarn run copy",
+    "copy": "copy /y \"./public/package.json\" \"./dist\"",
+    "build1": "rm -rf ./dist && npx tsc",
+    "lint": "npx eslint --fix .",
+    "start": "yarn run build && node ./dist/index.js",
+    "remove:dist": "rmdir /s /q \"./dist\"",
+    "deploy": "yarn run build && gh-pages -d dist",
+    "prettier:server": "npx prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+  },
+  "dependencies": {
+    "cron": "1.8.2",
+    "date-fns": "^2.29.3",
+    "discord-bot-core-client": "^0.0.4",
+    "dotenv": "^10.0.0",
+    "gh-pages": "^5.0.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "node-fetch": "2"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/cron": "1.7.3",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^16.6.1",
+    "@types/node-fetch": "^2.6.3",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.8.8",
+    "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": ">=16.6.0",
+    "npm": ">=7.0.0"
+  }
+}

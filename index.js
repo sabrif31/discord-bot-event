@@ -22,4 +22,4 @@ const client = new discord_bot_core_client_1.CoreClient({
         ],
     },
 });
-client.registerBotsIn(path_1.default.resolve(__dirname, "bots")).start();
+client.registerBotsIn(path_1.default.resolve(__dirname, 'bots')).start();

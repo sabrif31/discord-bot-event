@@ -11,5 +11,5 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 module.exports = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(__dirname.split("\\").slice(-2)[0]);
+    console.log(__dirname.split('\\').slice(-2)[0]);
 });

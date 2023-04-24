@@ -14,9 +14,9 @@ module.exports = (message) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     const logMessage = [
-        "name" in message.channel ? `#${message.channel.name}` : "",
+        'name' in message.channel ? `#${message.channel.name}` : '',
         message.author.tag,
         message.content,
-    ].join(": ");
+    ].join(': ');
     console.log(logMessage);
 });

@@ -59,9 +59,7 @@
             "cronExpression": "0 0 */8 * * *",
             "channelPolicy": "random",
             "messagePolicy": "single",
-            "channelIds": [
-                "1098285893133021207"
-            ],
+            "channelIds": ["1098285893133021207"],
             "messages": [
                 {
                     "content": "Vote by reacting with ⭐ on any message to nominate it for the <#752760008483012639>!"
@@ -108,9 +106,7 @@
             "cronExpression": "0 15 */8 * * *",
             "channelPolicy": "random",
             "messagePolicy": "single",
-            "channelIds": [
-                "1098285893133021207"
-            ],
+            "channelIds": ["1098285893133021207"],
             "messages": [
                 {
                     "embeds": [
@@ -138,9 +134,7 @@
             "cronExpression": "0 30 */8 * * *",
             "channelPolicy": "random",
             "messagePolicy": "single",
-            "channelIds": [
-                "1098285893133021207"
-            ],
+            "channelIds": ["1098285893133021207"],
             "messages": [
                 {
                     "embeds": [
@@ -175,9 +169,7 @@
             "cronExpression": "0 45 */8 * * *",
             "channelPolicy": "random",
             "messagePolicy": "single",
-            "channelIds": [
-                "755818716641624104"
-            ],
+            "channelIds": ["755818716641624104"],
             "messages": [
                 {
                     "embeds": [

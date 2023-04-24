@@ -17,19 +17,19 @@ const date_fns_1 = require("date-fns");
 const lodash_1 = require("lodash");
 class DiscordEvents {
     constructor() {
-        this.base_api_url = "https://discord.com/api/v9";
+        this.base_api_url = 'https://discord.com/api/v9';
         this.auth_headers = {
             Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-            "User-Agent": "DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch",
-            "Content-Type": "application/json",
+            'User-Agent': 'DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch',
+            'Content-Type': 'application/json',
         };
-        this.query_params = "?with_user_count=true";
+        this.query_params = '?with_user_count=true';
     }
     getWeeklyEvent(listEvents) {
         const date = new Date();
         const dateReference = (0, date_fns_1.addDays)(date, 14);
         const eventWeek = (0, lodash_1.filter)(listEvents, (event) => (0, date_fns_1.isBefore)(new Date(event.scheduled_start_time), dateReference));
-        const weekEventSort = (0, lodash_1.orderBy)(eventWeek, ["scheduled_start_time"], ["asc"]);
+        const weekEventSort = (0, lodash_1.orderBy)(eventWeek, ['scheduled_start_time'], ['asc']);
         return weekEventSort;
     }
     getEventListByGuildId(guildId) {
@@ -66,7 +66,7 @@ class DiscordEvents {
             });
             try {
                 const response = yield (0, node_fetch_1.default)(event_create_url, {
-                    method: "POST",
+                    method: 'POST',
                     headers: this.auth_headers,
                     body: event_data,
                 });

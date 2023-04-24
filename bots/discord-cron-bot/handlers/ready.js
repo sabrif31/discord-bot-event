@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_json_1 = __importDefault(require("../config.json"));
-const listEvents_1 = __importDefault(require("./listEvents"));
+const listEvents_1 = __importDefault(require("../../../utils/listEvents"));
 const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -26,9 +26,9 @@ class CronBot {
         // this.rule = rule;
         this.event = {
             cronExpression: config_json_1.default.cronExpression,
-            channelPolicy: "single",
-            messagePolicy: "single",
-            reactionPolicy: "single",
+            channelPolicy: 'single',
+            messagePolicy: 'single',
+            reactionPolicy: 'single',
             channelIds: [],
             messages: [],
             reactions: [],
@@ -69,18 +69,18 @@ class CronBot {
                 const startDateUnixTimestamp = Math.floor(startDate.getTime() / 1000);
                 const endDate = new Date(event.scheduled_end_time);
                 const endDateUnixTimestamp = Math.floor(endDate.getTime() / 1000);
-                const defaultValue = "                                             ";
+                const defaultValue = '                                             ';
                 const name = event.name.length > 30
                     ? `${event.name.substring(0, 40)}...`
                     : event.name;
                 const start = defaultValue.substring(0, Number(name.length - 1));
                 const eventName = defaultValue.replace(start, name);
                 return {
-                    name: startDate.toLocaleDateString("fr-FR", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                    name: startDate.toLocaleDateString('fr-FR', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
                     }),
                     value: `[\`${eventName}\`](https://discord.com/events/${process.env.GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
                     inline: false,
@@ -88,19 +88,19 @@ class CronBot {
             });
             this.event = {
                 cronExpression: config_json_1.default.cronExpression,
-                channelPolicy: "single",
-                messagePolicy: "single",
-                reactionPolicy: "single",
+                channelPolicy: 'single',
+                messagePolicy: 'single',
+                reactionPolicy: 'single',
                 channelIds: [process.env.CHANNEL_ID],
                 messages: [
                     {
-                        username: "EVENTS",
-                        avatarURL: "https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp",
+                        username: 'EVENTS',
+                        avatarURL: 'https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp',
                         content: `<@&$${process.env.ROLE_ID}>`,
                         embeds: [
                             {
-                                title: "Event",
-                                description: "**Événements pour les 14 prochains jours**",
+                                title: 'Event',
+                                description: '**Événements pour les 14 prochains jours**',
                                 color: 500,
                                 fields,
                             },
@@ -118,11 +118,11 @@ class CronBot {
             return [];
         }
         switch (policy) {
-            case "all":
+            case 'all':
                 return list;
-            case "random":
+            case 'random':
                 return [list[getRandomInt(0, list.length)]];
-            case "single":
+            case 'single':
             default:
                 return [list[0]];
         }
@@ -133,13 +133,13 @@ class CronBot {
             const channel = (yield ((_a = this.client) === null || _a === void 0 ? void 0 : _a.channels.fetch(channelId)));
             const webhooks = yield channel.fetchWebhooks();
             return !webhooks.size
-                ? channel.createWebhook(((_c = (_b = this.client) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.username) || "📢")
+                ? channel.createWebhook(((_c = (_b = this.client) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.username) || '📢')
                 : webhooks.first();
         });
     }
 }
 module.exports = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(__dirname.split("\\").slice(-2)[0]);
+    console.log(__dirname.split('\\').slice(-2)[0]);
     const bot = new CronBot(client);
     bot.sendMessages();
     /*

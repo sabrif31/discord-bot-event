@@ -27,11 +27,11 @@ import {
 const node_fetch_1 = __importDefault(require("node-fetch"));
 class DiscordEvents {
     constructor() {
-        this.base_api_url = "https://discord.com/api/v9";
+        this.base_api_url = 'https://discord.com/api/v9';
         this.auth_headers = {
             Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-            "User-Agent": "DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch",
-            "Content-Type": "application/json",
+            'User-Agent': 'DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch',
+            'Content-Type': 'application/json',
         };
     }
     list_guild_events() {
@@ -68,7 +68,7 @@ class DiscordEvents {
             });
             try {
                 const response = yield (0, node_fetch_1.default)(event_create_url, {
-                    method: "POST",
+                    method: 'POST',
                     headers: this.auth_headers,
                     body: event_data,
                 });
@@ -84,7 +84,7 @@ class DiscordEvents {
     }
 }
 module.exports = () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(__dirname.split("\\").slice(-2)[0]);
+    console.log(__dirname.split('\\').slice(-2)[0]);
     const bot = new DiscordEvents();
     bot.list_guild_events().then((events) => {
         console.log(events);
