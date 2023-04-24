@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const cron_1 = require("cron");
 const config_json_1 = __importDefault(require("../config.json"));
 const listEvents_1 = __importDefault(require("./listEvents"));
 const getRandomInt = (min, max) => {
@@ -39,6 +38,15 @@ class CronBot {
         var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function* () {
             yield this.getListEvents();
+            /*
+            if (
+              !isEmpty(this.event.messages) &&
+              !isEmpty(this.event.messages[0].embeds) &&
+              !isEmpty(this.event.messages[0].embeds[0].fields)
+            ) {
+              console.log("SEND MESSAGE");
+            }
+            */
             const channelIds = this._applyPolicyToList((_a = this.event) === null || _a === void 0 ? void 0 : _a.channelPolicy, (_b = this.event) === null || _b === void 0 ? void 0 : _b.channelIds);
             const messages = this._applyPolicyToList((_c = this.event) === null || _c === void 0 ? void 0 : _c.messagePolicy, (_d = this.event) === null || _d === void 0 ? void 0 : _d.messages);
             const reactions = this._applyPolicyToList((_e = this.event) === null || _e === void 0 ? void 0 : _e.reactionPolicy, (_f = this.event) === null || _f === void 0 ? void 0 : _f.reactions);
@@ -54,16 +62,19 @@ class CronBot {
     getListEvents() {
         return __awaiter(this, void 0, void 0, function* () {
             const bot = new listEvents_1.default();
-            const listEvents = yield bot.list_guild_events();
-            const fields = listEvents.map((event) => {
+            const listEvents = yield bot.getEventListByGuildId(process.env.GUILD_ID);
+            const weekEventList = bot.getWeeklyEvent(listEvents);
+            const fields = weekEventList.map((event) => {
                 const startDate = new Date(event.scheduled_start_time);
                 const startDateUnixTimestamp = Math.floor(startDate.getTime() / 1000);
                 const endDate = new Date(event.scheduled_end_time);
                 const endDateUnixTimestamp = Math.floor(endDate.getTime() / 1000);
-                // TODO: Détecter si le nom de l'event est trop long et le tronquer
                 const defaultValue = "                                             ";
-                const start = defaultValue.substr(0, Number(event.name.length - 1));
-                const eventName = defaultValue.replace(start, event.name);
+                const name = event.name.length > 30
+                    ? `${event.name.substring(0, 40)}...`
+                    : event.name;
+                const start = defaultValue.substring(0, Number(name.length - 1));
+                const eventName = defaultValue.replace(start, name);
                 return {
                     name: startDate.toLocaleDateString("fr-FR", {
                         weekday: "long",
@@ -80,16 +91,16 @@ class CronBot {
                 channelPolicy: "single",
                 messagePolicy: "single",
                 reactionPolicy: "single",
-                channelIds: ["1098285893133021207"],
+                channelIds: [process.env.CHANNEL_ID],
                 messages: [
                     {
                         username: "EVENTS",
                         avatarURL: "https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp",
-                        content: " ",
+                        content: `<@&$${process.env.ROLE_ID}>`,
                         embeds: [
                             {
                                 title: "Event",
-                                description: "**Événements pour les 7 prochains jours**",
+                                description: "**Événements pour les 14 prochains jours**",
                                 color: 500,
                                 fields,
                             },
@@ -130,7 +141,16 @@ class CronBot {
 module.exports = (client) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(__dirname.split("\\").slice(-2)[0]);
     const bot = new CronBot(client);
-    new cron_1.CronJob(config_json_1.default.cronExpression, () => bot.sendMessages(), null, true, config_json_1.default.timezone);
+    bot.sendMessages();
+    /*
+    new CronJob(
+      config.cronExpression,
+      () => bot.sendMessages(),
+      null,
+      true,
+      config.timezone
+    );
+    */
     /*
     (message as Config).rules.forEach((rule) => {
       const bot = new CronBot(client, rule);

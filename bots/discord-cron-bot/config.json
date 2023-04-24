@@ -1,6 +1,6 @@
 {
     "timezone": "Europe/Paris",
-    "cronExpression": "0 55 16 * * 0",
+    "cronExpression": "0 0 9 * * 1",
     "rules": [
         {
             "cronExpression": "0 35 14 * * 0",
