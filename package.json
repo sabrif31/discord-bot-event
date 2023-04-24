@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "homepage": "https://sabrif31.github.io/discord-bot-event",
   "scripts": {
-    "build": "npx tsc && yarn run copy",
+    "build": "rmdir /s /q \"./dist\" && npx tsc && yarn run copy",
     "copy": "copy /y \"./public/package.json\" \"./dist\"",
     "build1": "rm -rf ./dist && npx tsc",
     "lint": "npx eslint --fix .",
