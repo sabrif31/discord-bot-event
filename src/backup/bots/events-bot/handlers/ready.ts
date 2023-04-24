@@ -10,60 +10,60 @@ import {
   WebhookMessageOptions,
 } from "discord.js";
 */
-import fetch from "node-fetch";
+import fetch from 'node-fetch'
 
 type HeadersType = {
-  Authorization: string;
-  "User-Agent": string;
-  "Content-Type": string;
-};
+  Authorization: string
+  'User-Agent': string
+  'Content-Type': string
+}
 
 type EventMetadataType = {
-  location: string;
-};
+  location: string
+}
 type EventCreateType = {
-  event_name: string;
-  event_description: string;
-  event_start_time: string;
-  event_end_time: string;
-  event_metadata: EventMetadataType;
-  location: string;
-  event_privacy_level: number;
-  channel_id: null;
-};
+  event_name: string
+  event_description: string
+  event_start_time: string
+  event_end_time: string
+  event_metadata: EventMetadataType
+  location: string
+  event_privacy_level: number
+  channel_id: null
+}
 
 class DiscordEvents {
-  base_api_url: string;
-  auth_headers: HeadersType;
+  base_api_url: string
+  auth_headers: HeadersType
 
   constructor() {
-    this.base_api_url = "https://discord.com/api/v9";
+    this.base_api_url = 'https://discord.com/api/v9'
     this.auth_headers = {
       Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-      "User-Agent":
-        "DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch",
-      "Content-Type": "application/json",
-    };
+      'User-Agent':
+        'DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch',
+      'Content-Type': 'application/json',
+    }
   }
 
   async list_guild_events() {
-    const event_retrieve_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events`;
+    const event_retrieve_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events`
     try {
       const response = await fetch(event_retrieve_url, {
         headers: this.auth_headers,
-      });
-      const response_list = await response.json();
+      })
+      const response_list = await response.json()
       if (!response.ok) {
         throw new Error(
           `Failed with status ${response.status}: ${JSON.stringify(
             response_list
           )}`
-        );
+        )
       }
-      return response_list;
+      return response_list
     } catch (e) {
-      console.log(`EXCEPTION: ${e}`);
-      return [];
+      console.log(`EXCEPTION: ${e}`)
+      return []
     }
   }
 
@@ -76,7 +76,7 @@ class DiscordEvents {
     event_privacy_level = 2,
     channel_id = null,
   }: EventCreateType) {
-    const event_create_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events`;
+    const event_create_url = `${this.base_api_url}/guilds/${process.env.GUILD_ID}/scheduled-events`
     const event_data = JSON.stringify({
       name: event_name,
       privacy_level: event_privacy_level,
@@ -86,34 +86,34 @@ class DiscordEvents {
       channel_id: channel_id,
       entity_metadata: event_metadata,
       entity_type: 3,
-    });
+    })
 
     try {
       const response = await fetch(event_create_url, {
-        method: "POST",
+        method: 'POST',
         headers: this.auth_headers,
         body: event_data,
-      });
+      })
       if (!response.ok) {
-        const response_text = await response.text();
+        const response_text = await response.text()
         throw new Error(
           `Failed with status ${response.status}: ${response_text}`
-        );
+        )
       }
     } catch (e) {
-      console.log(`EXCEPTION: ${e}`);
+      console.log(`EXCEPTION: ${e}`)
     }
   }
 }
 
 module.exports = async (): Promise<void> => {
-  console.log(__dirname.split("\\").slice(-2)[0]);
+  console.log(__dirname.split('\\').slice(-2)[0])
 
-  const bot = new DiscordEvents();
+  const bot = new DiscordEvents()
   bot.list_guild_events().then((events) => {
-    console.log(events);
-  });
-};
+    console.log(events)
+  })
+}
 
 /*
 const getRandomInt = (min: number, max: number): number => {

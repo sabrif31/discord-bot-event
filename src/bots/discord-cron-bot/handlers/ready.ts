@@ -1,4 +1,5 @@
-import { CronJob } from "cron";
+/* eslint-disable prettier/prettier */
+import { CronJob } from 'cron'
 import {
   Client,
   Snowflake,
@@ -7,40 +8,40 @@ import {
   WebhookMessageOptions,
   EmojiResolvable,
   Message,
-} from "discord.js";
-import { CronRuleItem, EventDiscordType, Policy, Rule } from "../types"; // Config,
-import config from "../config.json";
-import DiscordEvents from "./listEvents";
-import isEmpty from "lodash/isEmpty";
+} from 'discord.js'
+import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
+import config from '../config.json'
+import DiscordEvents from './listEvents'
+import isEmpty from 'lodash/isEmpty'
 
 const getRandomInt = (min: number, max: number): number => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
-};
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min)
+}
 
 class CronBot {
-  client?: Client;
+  client?: Client
   // rule?: Rule;
-  event: Rule;
+  event: Rule
 
   constructor(client?: Client) {
     // , rule?: Rule
-    this.client = client;
+    this.client = client
     // this.rule = rule;
     this.event = {
       cronExpression: config.cronExpression,
-      channelPolicy: "single",
-      messagePolicy: "single",
-      reactionPolicy: "single",
+      channelPolicy: 'single',
+      messagePolicy: 'single',
+      reactionPolicy: 'single',
       channelIds: [],
       messages: [],
       reactions: [],
-    };
+    }
   }
 
   async sendMessages(): Promise<void> {
-    await this.getListEvents();
+    await this.getListEvents()
     /*
     if (
       !isEmpty(this.event.messages) &&
@@ -53,74 +54,74 @@ class CronBot {
     const channelIds = this._applyPolicyToList(
       this.event?.channelPolicy,
       this.event?.channelIds
-    ) as Snowflake[];
+    ) as Snowflake[]
     const messages = this._applyPolicyToList(
       this.event?.messagePolicy,
       this.event?.messages
-    ) as WebhookMessageOptions[];
+    ) as WebhookMessageOptions[]
     const reactions = this._applyPolicyToList(
       this.event?.reactionPolicy,
       this.event?.reactions
-    ) as EmojiResolvable[];
+    ) as EmojiResolvable[]
 
     channelIds.forEach(async (channelId) => {
-      const webhook = await this._getWebhook(channelId);
+      const webhook = await this._getWebhook(channelId)
       messages.forEach(async (message) => {
-        const newMessage = (await webhook.send(message)) as Message;
-        reactions.forEach(async (reaction) => await newMessage.react(reaction));
-      });
-    });
+        const newMessage = (await webhook.send(message)) as Message
+        reactions.forEach(async (reaction) => await newMessage.react(reaction))
+      })
+    })
   }
 
   async getListEvents(): Promise<Rule> {
-    const bot = new DiscordEvents();
+    const bot = new DiscordEvents()
     const listEvents = await bot.getEventListByGuildId(
       process.env.GUILD_ID as string
-    );
-    const weekEventList = bot.getWeeklyEvent(listEvents);
+    )
+    const weekEventList = bot.getWeeklyEvent(listEvents)
 
     const fields = weekEventList.map((event: EventDiscordType) => {
-      const startDate = new Date(event.scheduled_start_time);
-      const startDateUnixTimestamp = Math.floor(startDate.getTime() / 1000);
-      const endDate = new Date(event.scheduled_end_time);
-      const endDateUnixTimestamp = Math.floor(endDate.getTime() / 1000);
+      const startDate = new Date(event.scheduled_start_time)
+      const startDateUnixTimestamp = Math.floor(startDate.getTime() / 1000)
+      const endDate = new Date(event.scheduled_end_time)
+      const endDateUnixTimestamp = Math.floor(endDate.getTime() / 1000)
 
-      const defaultValue = "                                             ";
+      const defaultValue = '                                             '
       const name =
         event.name.length > 30
           ? `${event.name.substring(0, 40)}...`
-          : event.name;
-      const start = defaultValue.substring(0, Number(name.length - 1));
-      const eventName = defaultValue.replace(start, name);
+          : event.name
+      const start = defaultValue.substring(0, Number(name.length - 1))
+      const eventName = defaultValue.replace(start, name)
 
       return {
-        name: startDate.toLocaleDateString("fr-FR", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
+        name: startDate.toLocaleDateString('fr-FR', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
         }), // "samedi 22 avril 2023",
         value: `[\`${eventName}\`](https://discord.com/events/${process.env.GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
         inline: false,
-      };
-    });
+      }
+    })
 
     this.event = {
       cronExpression: config.cronExpression,
-      channelPolicy: "single",
-      messagePolicy: "single",
-      reactionPolicy: "single",
+      channelPolicy: 'single',
+      messagePolicy: 'single',
+      reactionPolicy: 'single',
       channelIds: [process.env.CHANNEL_ID as string], // 1099755183883423744 1099756428450861207 - 1024013712656437399
       messages: [
         {
-          username: "EVENTS",
+          username: 'EVENTS',
           avatarURL:
-            "https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp",
+            'https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp',
           content: `<@&$${process.env.ROLE_ID as string}>`, // Role ID 1098285892503867448 1030970928538075146
           embeds: [
             {
-              title: "Event",
-              description: "**Événements pour les 14 prochains jours**",
+              title: 'Event',
+              description: '**Événements pour les 14 prochains jours**',
               color: 500,
               fields,
             },
@@ -129,8 +130,8 @@ class CronBot {
         },
       ],
       reactions: [],
-    };
-    return this.event;
+    }
+    return this.event
   }
 
   private _applyPolicyToList(
@@ -138,37 +139,37 @@ class CronBot {
     list?: CronRuleItem[]
   ): CronRuleItem[] {
     if (!policy || !list || list.length === 0) {
-      return [];
+      return []
     }
 
     switch (policy) {
-      case "all":
-        return list;
-      case "random":
-        return [list[getRandomInt(0, list.length)]];
-      case "single":
+      case 'all':
+        return list
+      case 'random':
+        return [list[getRandomInt(0, list.length)]]
+      case 'single':
       default:
-        return [list[0]];
+        return [list[0]]
     }
   }
 
   private async _getWebhook(channelId: Snowflake): Promise<Webhook> {
     const channel = (await this.client?.channels.fetch(
       channelId
-    )) as TextChannel;
-    const webhooks = await channel.fetchWebhooks();
+    )) as TextChannel
+    const webhooks = await channel.fetchWebhooks()
 
     return !webhooks.size
-      ? channel.createWebhook(this.client?.user?.username || "📢")
-      : (webhooks.first() as Webhook);
+      ? channel.createWebhook(this.client?.user?.username || '📢')
+      : (webhooks.first() as Webhook)
   }
 }
 
 module.exports = async (client: Client): Promise<void> => {
-  console.log(__dirname.split("\\").slice(-2)[0]);
+  console.log(__dirname.split('\\').slice(-2)[0])
 
-  const bot = new CronBot(client);
-  bot.sendMessages();
+  const bot = new CronBot(client)
+  bot.sendMessages()
   /*
   new CronJob(
     config.cronExpression,
@@ -202,4 +203,4 @@ module.exports = async (client: Client): Promise<void> => {
     );
   });
   */
-};
+}

@@ -1,7 +1,11 @@
 import fetch from 'node-fetch'
 import { isBefore, addDays } from 'date-fns'
 import { filter, orderBy } from 'lodash'
-import { EventCreateType, EventDiscordType, HeadersType } from '../types'
+import {
+  EventCreateType,
+  EventDiscordType,
+  HeadersType,
+} from '../bots/discord-cron-bot/types'
 
 class DiscordEvents {
   base_api_url: string

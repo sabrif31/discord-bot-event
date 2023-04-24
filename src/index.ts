@@ -1,7 +1,7 @@
-import "dotenv/config";
-import path from "path";
-import { Intents } from "discord.js";
-import { CoreClient } from "discord-bot-core-client";
+import 'dotenv/config'
+import path from 'path'
+import { Intents } from 'discord.js'
+import { CoreClient } from 'discord-bot-core-client'
 
 const client = new CoreClient({
   token: process.env.DISCORD_BOT_TOKEN as string,
@@ -17,6 +17,6 @@ const client = new CoreClient({
       Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     ],
   },
-});
+})
 
-client.registerBotsIn(path.resolve(__dirname, "bots")).start();
+client.registerBotsIn(path.resolve(__dirname, 'bots')).start()

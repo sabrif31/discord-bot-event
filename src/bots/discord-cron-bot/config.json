@@ -10,34 +10,34 @@
       "channelIds": ["1098285893133021207"],
       "messages": [
         {
-            "username": "EVENTS",
-            "avatar_url": "https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp",
-            "content": " ",
-            "embeds": [
+          "username": "EVENTS",
+          "avatar_url": "https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp",
+          "content": " ",
+          "embeds": [
+            {
+              "title": "Event",
+              "description": "**Événements pour les 7 prochains jours**",
+              "color": 500,
+              "fields": [
                 {
-                    "title": "Event",
-                    "description": "**Événements pour les 7 prochains jours**",
-                    "color": 500,
-                    "fields": [
-                        {
-                            "name": "samedi 22 avril 2023",
-                            "value": "[` Hyperactivity Music presents MOLECULAR + ...`](https://discord.com/events/1098285892503867442/1099056057541738669 \"Event\") <t:1682186400:t> - <t:1682209800:t>",
-                            "inline": false
-                        },
-                        {
-                            "name": "dimanche 23 avril 2023",
-                            "value": "[`gdg                                          `](https://discord.com/events/1098285892503867442/1099054715016319107 \"Event\") <t:1682253900:t> - <t:1682262900:t>",
-                            "inline": false
-                        },
-                        {
-                            "name": "vendredi 28 avril 2023",
-                            "value": "[`ECLECTIK SOUNDS  |  DUB – TECHNO             `](https://discord.com/events/1098285892503867442/1099143587565949009 \"Event\") <t:1682704800:t> - <t:1682827200:t>",
-                            "inline": false
-                        }
-                    ]
+                  "name": "samedi 22 avril 2023",
+                  "value": "[` Hyperactivity Music presents MOLECULAR + ...`](https://discord.com/events/1098285892503867442/1099056057541738669 \"Event\") <t:1682186400:t> - <t:1682209800:t>",
+                  "inline": false
+                },
+                {
+                  "name": "dimanche 23 avril 2023",
+                  "value": "[`gdg                                          `](https://discord.com/events/1098285892503867442/1099054715016319107 \"Event\") <t:1682253900:t> - <t:1682262900:t>",
+                  "inline": false
+                },
+                {
+                  "name": "vendredi 28 avril 2023",
+                  "value": "[`ECLECTIK SOUNDS  |  DUB – TECHNO             `](https://discord.com/events/1098285892503867442/1099143587565949009 \"Event\") <t:1682704800:t> - <t:1682827200:t>",
+                  "inline": false
                 }
-            ],
-            "components": []
+              ]
+            }
+          ],
+          "components": []
         }
       ],
       "reactions": []
@@ -59,9 +59,7 @@
       "cronExpression": "0 0 */8 * * *",
       "channelPolicy": "random",
       "messagePolicy": "single",
-      "channelIds": [
-        "1098285893133021207"
-      ],
+      "channelIds": ["1098285893133021207"],
       "messages": [
         {
           "content": "Vote by reacting with ⭐ on any message to nominate it for the <#752760008483012639>!"
@@ -108,9 +106,7 @@
       "cronExpression": "0 15 */8 * * *",
       "channelPolicy": "random",
       "messagePolicy": "single",
-      "channelIds": [
-        "1098285893133021207"
-      ],
+      "channelIds": ["1098285893133021207"],
       "messages": [
         {
           "embeds": [
@@ -138,9 +134,7 @@
       "cronExpression": "0 30 */8 * * *",
       "channelPolicy": "random",
       "messagePolicy": "single",
-      "channelIds": [
-        "1098285893133021207"
-      ],
+      "channelIds": ["1098285893133021207"],
       "messages": [
         {
           "embeds": [
@@ -175,9 +169,7 @@
       "cronExpression": "0 45 */8 * * *",
       "channelPolicy": "random",
       "messagePolicy": "single",
-      "channelIds": [
-        "755818716641624104"
-      ],
+      "channelIds": ["755818716641624104"],
       "messages": [
         {
           "embeds": [

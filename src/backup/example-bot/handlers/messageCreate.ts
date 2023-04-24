@@ -1,15 +1,15 @@
-import { Message } from "discord.js";
+import { Message } from 'discord.js'
 
 module.exports = async (message: Message): Promise<void> => {
   if (message.author.bot) {
-    return;
+    return
   }
 
   const logMessage = [
-    "name" in message.channel ? `#${message.channel.name}` : "",
+    'name' in message.channel ? `#${message.channel.name}` : '',
     message.author.tag,
     message.content,
-  ].join(": ");
+  ].join(': ')
 
-  console.log(logMessage);
-};
+  console.log(logMessage)
+}
