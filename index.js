@@ -4,10 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv/config");
-const path_1 = __importDefault(require("path"));
-const discord_js_1 = require("discord.js");
-const discord_bot_core_client_1 = require("discord-bot-core-client");
-const client = new discord_bot_core_client_1.CoreClient({
+var path_1 = __importDefault(require("path"));
+var discord_js_1 = require("discord.js");
+var discord_bot_core_client_1 = require("discord-bot-core-client");
+var client = new discord_bot_core_client_1.CoreClient({
     token: process.env.DISCORD_BOT_TOKEN,
     clientOptions: {
         intents: [
