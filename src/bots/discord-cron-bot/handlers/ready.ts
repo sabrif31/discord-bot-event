@@ -12,6 +12,8 @@ import {
 import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
 import config from '../config.json'
 import DiscordEvents from '../../../utils/listEvents'
+import { format } from 'date-fns'
+import { fr } from 'date-fns/locale'
 import isEmpty from 'lodash/isEmpty'
 
 const getRandomInt = (min: number, max: number): number => {
@@ -93,20 +95,8 @@ class CronBot {
           : event.name
       const start = defaultValue.substring(0, Number(name.length - 1))
       const eventName = defaultValue.replace(start, name)
-      // format(new Date(), "dd/MM/yyyy HH:mm:ss")
-      const { formatDistance } = require('date-fns')
-
-      const birthday = new Date('1956, 01, 28')
-      const presentDay = new Date()
-
-      console.log(`Age: ${formatDistance(presentDay, birthday)}`)
       return {
-        name: startDate.toLocaleDateString('fr-FR', {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        }), // "samedi 22 avril 2023",
+        name: format(startDate, 'EEEE dd MMMM yyyy', { locale: fr }), // "samedi 22 avril 2023",
         value: `[\`${eventName}\`](https://discord.com/events/${process.env.GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
         inline: false,
       }
