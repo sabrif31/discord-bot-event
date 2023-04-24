@@ -8,19 +8,22 @@
     "build": "rmdir /s /q \"./dist\"  && npx tsc",
     "build1": "rm -rf ./dist && npx tsc",
     "lint": "npx eslint --fix .",
-    "start": "npm run build && node ./dist/index.js",
-    "publish": "yarn run build && gh-pages -d dist"
+    "start": "yarn run build && node ./dist/index.js"
   },
   "dependencies": {
     "cron": "1.8.2",
+    "date-fns": "^2.29.3",
     "discord-bot-core-client": "^0.0.4",
     "dotenv": "^10.0.0",
     "gh-pages": "^5.0.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "node-fetch": "2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
     "@types/cron": "1.7.3",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^16.6.1",
     "@types/node-fetch": "^2.6.3",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
