@@ -11,7 +11,7 @@ import {
 } from 'discord.js'
 import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
 import config from '../config.json'
-import DiscordEvents from './listEvents'
+import DiscordEvents from '../../../utils/listEvents'
 import isEmpty from 'lodash/isEmpty'
 
 const getRandomInt = (min: number, max: number): number => {
