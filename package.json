@@ -1,6 +1,6 @@
 {
   "name": "create-discord-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A module-based Discord bot template.",
   "main": "./dist/index.js",
   "homepage": "https://sabrif31.github.io/discord-bot-event",
