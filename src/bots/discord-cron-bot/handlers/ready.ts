@@ -166,16 +166,14 @@ module.exports = async (client: Client): Promise<void> => {
   console.log(__dirname.split('\\').slice(-2)[0])
 
   const bot = new CronBot(client)
-  bot.sendMessages()
-  /*
+  // bot.sendMessages()
   new CronJob(
     config.cronExpression,
     () => bot.sendMessages(),
     null,
     true,
     config.timezone
-  );
-  */
+  )
   /*
   (message as Config).rules.forEach((rule) => {
     const bot = new CronBot(client, rule);
