@@ -6,16 +6,9 @@
   "homepage": "https://sabrif31.github.io/discord-bot-event",
   "scripts": {
     "start": "node ./dist/index.js",
-    "build": "rimraf ./dist && npx tsc",
-    "build:3": "rimraf ./dist && tsc && npm run copy &&  npm run copy:proc",
-    "build:dev": "rmdir /s /q \"./dist\" && npx tsc && npm run copy &&  npm run copy:proc",
-    "copy": "copy /y \"package.public.json\" \"./dist/package.json\"",
-    "copy:proc": "copy /y \"Procfile\" \"./dist\"",
-    "build1": "rm -rf ./dist && npx tsc",
-    "lint": "npx eslint --fix .",
     "start:dev": "npx nodemon",
-    "remove:dist": "rmdir /s /q \"./dist\"",
-    "deploy": "npm run build && gh-pages -d dist",
+    "build": "rimraf ./dist && npx tsc",
+    "lint": "npx eslint --fix .",
     "prettier:server": "npx prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "dependencies": {
