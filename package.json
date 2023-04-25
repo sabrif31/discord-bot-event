@@ -6,7 +6,8 @@
   "homepage": "https://sabrif31.github.io/discord-bot-event",
   "scripts": {
     "start": "node ./dist/index.js",
-    "build": "rimraf ./dist && tsc && npm run copy &&  npm run copy:proc",
+    "build": "rimraf ./dist && npx tsc",
+    "build:3": "rimraf ./dist && tsc && npm run copy &&  npm run copy:proc",
     "build:dev": "rmdir /s /q \"./dist\" && npx tsc && npm run copy &&  npm run copy:proc",
     "copy": "copy /y \"package.public.json\" \"./dist/package.json\"",
     "copy:proc": "copy /y \"Procfile\" \"./dist\"",
