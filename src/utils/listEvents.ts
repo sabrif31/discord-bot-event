@@ -24,7 +24,7 @@ class DiscordEvents {
 
   getWeeklyEvent(listEvents: EventDiscordType[]): EventDiscordType[] {
     const date = new Date()
-    const dateReference = addDays(date, 14)
+    const dateReference = addDays(date, 7)
     const eventWeek = filter(listEvents, (event) =>
       isBefore(new Date(event.scheduled_start_time), dateReference)
     )
