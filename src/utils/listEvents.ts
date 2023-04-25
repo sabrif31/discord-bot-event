@@ -13,11 +13,10 @@ class DiscordEvents {
   query_params: string
 
   constructor() {
-    this.base_api_url = 'https://discord.com/api/v9'
+    this.base_api_url = process.env.DISCORD_API_BASE_URL as string
     this.auth_headers = {
       Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-      'User-Agent':
-        'DiscordBot (https://discord.com/developers/applications/1099495431861448776) Node.js fetch',
+      'User-Agent': `DiscordBot (https://discord.com/developers/applications/${process.env.DISCORD_APP_ID}) Node.js fetch`,
       'Content-Type': 'application/json',
     }
     this.query_params = '?with_user_count=true'
