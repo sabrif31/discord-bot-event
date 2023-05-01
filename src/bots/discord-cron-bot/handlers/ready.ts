@@ -243,6 +243,9 @@ module.exports = async (client: Client): Promise<void> => {
   const removeRoleId = '1102683060027261061'
   // roles.deleteGuildRole(process.env.GUILD_ID as string, removeRoleId)
 
+  /* WEBHOOK MANAGE */
+  roles.addWebhook(process.env.CHANNEL_ID as string)
+
   /* CRON EVENTS */
   const bot = new CronBot(client)
   // bot.sendMessages()

@@ -138,6 +138,28 @@ class DiscordRoles {
       return `EXCEPTION: ${e}`
     }
   }
+
+  async addWebhook(channelId: string): Promise<roleType | null> {
+    const event_retrieve_url = `${this.base_api_url}/channels/${channelId}/webhooks`
+    try {
+      const response = await fetch(event_retrieve_url, {
+        method: 'POST',
+        headers: this.auth_headers,
+        body: JSON.stringify({ name: 'WebhookTest' }),
+      })
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(
+          `Failed with status ${response.status}: ${JSON.stringify(response)}`
+        )
+      }
+      console.log('addWebhook', result)
+      return result
+    } catch (e) {
+      console.log(`EXCEPTION: ${e}`)
+      return null
+    }
+  }
 }
 
 export default DiscordRoles
