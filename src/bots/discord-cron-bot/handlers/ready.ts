@@ -9,12 +9,16 @@ import {
   EmojiResolvable,
   Message,
 } from 'discord.js'
-import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
-import config from '../config.json'
-import DiscordEvents from '../../../utils/listEvents'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import isEmpty from 'lodash/isEmpty'
+import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
+import config from '../config.json'
+import DiscordEvents from '../../../utils/listEvents'
+import DiscordRoles, {
+  roleCreateType,
+  roleUpdateType,
+} from '../../../utils/roles'
 
 const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min)
@@ -40,6 +44,53 @@ class CronBot {
       messages: [],
       reactions: [],
     }
+  }
+
+  async snoozeEvents(): Promise<Rule> {
+    const bot = new DiscordEvents()
+    const listEvents = await bot.getEventListByGuildId(
+      process.env.GUILD_ID as string
+    )
+    const weekEventList = bot.getWeeklyEvent(listEvents)
+
+    const fields = weekEventList.map((event: EventDiscordType) => {
+      const startDate = new Date(event.scheduled_start_time)
+      const startDateUnixTimestamp = Math.floor(startDate.getTime() / 1000)
+      const endDate = new Date(event.scheduled_end_time)
+      const endDateUnixTimestamp = Math.floor(endDate.getTime() / 1000)
+
+      const defaultValue = '                                             '
+      const name =
+        event.name.length > 30
+          ? `${event.name.substring(0, 40)}...`
+          : event.name
+      const start = defaultValue.substring(0, Number(name.length - 1))
+      const eventName = defaultValue.replace(start, name)
+      return {
+        name: format(startDate, 'EEEE dd MMMM yyyy', { locale: fr }), // "samedi 22 avril 2023",
+        value: `[\`${eventName}\`](https://discord.com/events/${process.env.GUILD_ID}/${event.id} "Event") <t:${startDateUnixTimestamp}:t> - <t:${endDateUnixTimestamp}:t>`,
+        inline: false,
+      }
+    })
+
+    const role = `<@&${process.env.ROLE_ID}>`
+    const webhook = await this._getWebhook(process.env.CHANNEL_ID as string)
+    await webhook.send({
+      username: 'EVENTS',
+      avatarURL:
+        'https://cdn.discordapp.com/avatars/903380664336928798/2d11307165b711d93b3c80114585bf4c.webp',
+      content: role, // Role ID 1098285892503867448 1030970928538075146
+      embeds: [
+        {
+          title: 'Event',
+          description: '**Événements pour les 14 prochains jours**',
+          color: 500,
+          fields,
+        },
+      ],
+      components: [],
+    })
+    return this.event
   }
 
   async sendMessages(): Promise<void> {
@@ -165,6 +216,34 @@ class CronBot {
 module.exports = async (client: Client): Promise<void> => {
   console.log(__dirname.split('\\').slice(-2)[0])
 
+  /* ROLES MANAGE */
+  const roles = new DiscordRoles()
+  // roles.getGuildRoles(process.env.GUILD_ID as string)
+  const addOptions: roleCreateType = {
+    color: 2123412,
+    name: 'New Role',
+    permissions: '1080288595569',
+    hoist: false,
+    mentionable: false,
+  }
+  // roles.addGuildRole(process.env.GUILD_ID as string, addOptions)
+  const roleId = '1102655209072775209'
+  const updateOptions: roleUpdateType = {
+    color: 2123412,
+    // name: 'Producteur 2',
+    // permissions: '1080288595569',
+    // color: 2123412,
+    // hoist: false,
+    // mentionable: false,
+    // icon: null,
+    // unicode_emoji: null,
+  }
+  // roles.updateGuildRole(process.env.GUILD_ID as string, updateOptions, roleId)
+
+  const removeRoleId = '1102683060027261061'
+  // roles.deleteGuildRole(process.env.GUILD_ID as string, removeRoleId)
+
+  /* CRON EVENTS */
   const bot = new CronBot(client)
   // bot.sendMessages()
   new CronJob(
