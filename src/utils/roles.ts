@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { EventDiscordType, HeadersType } from '../bots/discord-cron-bot/types'
+import { HeadersType } from '../bots/discord-cron-bot/types'
 
 export type roleCreateType = {
   name?: string
@@ -29,6 +29,11 @@ export type roleType = {
   permissions: string
   managed: boolean
   mentionable: boolean
+}
+
+export type WebhookType = {
+  channelId: string
+  name: string
 }
 
 class DiscordRoles {
@@ -139,13 +144,16 @@ class DiscordRoles {
     }
   }
 
-  async addWebhook(channelId: string): Promise<roleType | null> {
+  async addWebhook({
+    channelId,
+    name,
+  }: WebhookType): Promise<WebhookType | string> {
     const event_retrieve_url = `${this.base_api_url}/channels/${channelId}/webhooks`
     try {
       const response = await fetch(event_retrieve_url, {
         method: 'POST',
         headers: this.auth_headers,
-        body: JSON.stringify({ name: 'WebhookTest' }),
+        body: JSON.stringify({ name }),
       })
       const result = await response.json()
       if (!response.ok) {
@@ -157,7 +165,7 @@ class DiscordRoles {
       return result
     } catch (e) {
       console.log(`EXCEPTION: ${e}`)
-      return null
+      return `EXCEPTION: ${e}`
     }
   }
 }

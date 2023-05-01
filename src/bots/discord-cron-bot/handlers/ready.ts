@@ -15,6 +15,7 @@ import isEmpty from 'lodash/isEmpty'
 import { CronRuleItem, EventDiscordType, Policy, Rule } from '../types' // Config,
 import config from '../config.json'
 import DiscordEvents from '../../../utils/listEvents'
+import DiscordWebhook from '../../../utils/webhook'
 import DiscordRoles, {
   roleCreateType,
   roleUpdateType,
@@ -216,7 +217,9 @@ class CronBot {
 module.exports = async (client: Client): Promise<void> => {
   console.log(__dirname.split('\\').slice(-2)[0])
 
-  /* ROLES MANAGE */
+  /**
+   * ROLES MANAGE
+   */
   const roles = new DiscordRoles()
   // roles.getGuildRoles(process.env.GUILD_ID as string)
   const addOptions: roleCreateType = {
@@ -243,10 +246,20 @@ module.exports = async (client: Client): Promise<void> => {
   const removeRoleId = '1102683060027261061'
   // roles.deleteGuildRole(process.env.GUILD_ID as string, removeRoleId)
 
-  /* WEBHOOK MANAGE */
-  roles.addWebhook(process.env.CHANNEL_ID as string)
+  /**
+   * WEBHOOK MANAGE
+   */
+  const webhook = new DiscordWebhook()
+  /*
+  roles.addWebhook({
+    channelId: process.env.CHANNEL_ID as string,
+    name: 'WebHook 3',
+  })
+  */
 
-  /* CRON EVENTS */
+  /**
+   * CRON EVENTS
+   */
   const bot = new CronBot(client)
   // bot.sendMessages()
   new CronJob(
@@ -256,6 +269,7 @@ module.exports = async (client: Client): Promise<void> => {
     true,
     config.timezone
   )
+
   /*
   (message as Config).rules.forEach((rule) => {
     const bot = new CronBot(client, rule);
