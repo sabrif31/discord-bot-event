@@ -20,6 +20,10 @@ export type roleUpdateType = {
   mentionable?: boolean
 }
 
+export type BotIdType = {
+  bot_id: string
+}
+
 export type roleType = {
   id: string
   name: string
@@ -29,6 +33,11 @@ export type roleType = {
   permissions: string
   managed: boolean
   mentionable: boolean
+  description: string | null
+  icon: string | null
+  unicode_emoji: string | null
+  tags: BotIdType
+  flags: number
 }
 
 export type WebhookType = {
@@ -65,7 +74,7 @@ class DiscordRoles {
           )}`
         )
       }
-      console.log('response_list', response_list)
+      // console.log('response_list', response_list)
       return response_list
     } catch (e) {
       console.log(`EXCEPTION: ${e}`)
@@ -90,7 +99,7 @@ class DiscordRoles {
           `Failed with status ${response.status}: ${JSON.stringify(response)}`
         )
       }
-      console.log('addGuildRole', result)
+      // console.log('addGuildRole', result)
       return result
     } catch (e) {
       console.log(`EXCEPTION: ${e}`)
@@ -161,7 +170,7 @@ class DiscordRoles {
           `Failed with status ${response.status}: ${JSON.stringify(response)}`
         )
       }
-      console.log('addWebhook', result)
+      // console.log('addWebhook', result)
       return result
     } catch (e) {
       console.log(`EXCEPTION: ${e}`)

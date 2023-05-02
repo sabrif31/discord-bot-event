@@ -38,7 +38,105 @@ class DiscordWebhook {
           `Failed with status ${response.status}: ${JSON.stringify(response)}`
         )
       }
-      console.log('addWebhook', result)
+      // console.log('addWebhook', result)
+      return result
+    } catch (e) {
+      console.log(`EXCEPTION: ${e}`)
+      return `EXCEPTION: ${e}`
+    }
+  }
+
+  // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
+  json = {
+    name: 'copyrole',
+    type: 1,
+    description: 'Duplicate a specific role',
+    options: [
+      {
+        name: 'role_id',
+        description: 'The role id at duplicate',
+        type: 3,
+        required: true,
+      },
+      // {
+      //   name: 'permissions',
+      //   description: 'The role permission at duplicate',
+      //   type: 3,
+      //   required: true,
+      // },
+      {
+        name: 'role_name',
+        description: 'New role name',
+        type: 3,
+        required: true,
+      },
+      {
+        name: 'role_color',
+        description: 'The role color at duplicate',
+        type: 3,
+        required: true,
+        choices: [
+          {
+            name: 'Blue',
+            value: '2123412',
+          },
+          {
+            name: 'Red',
+            value: '2123412',
+          },
+          {
+            name: 'Purple',
+            value: '2123412',
+          },
+        ],
+      },
+    ],
+  }
+
+  // This is an example CHAT_INPUT or Slash Command, with a type of 1
+  async createCommands(): Promise<any | string> {
+    const event_retrieve_url = `${this.base_api_url}/applications/${process.env.DISCORD_APP_ID}/commands`
+    try {
+      const response = await fetch(event_retrieve_url, {
+        method: 'POST',
+        headers: this.auth_headers,
+        body: JSON.stringify(this.json),
+      })
+      const result = await response.json()
+      if (!response.ok) {
+        console.log('response', response)
+        throw new Error(
+          `Failed with status ${response.status}: ${JSON.stringify(response)}`
+        )
+      }
+      // console.log('createCommands', result)
+      return result
+    } catch (e) {
+      console.log(`EXCEPTION: ${e}`)
+      return `EXCEPTION: ${e}`
+    }
+  }
+
+  // This is an example USER command, with a type of 2
+  makingGuildJson = {
+    name: 'Manage Roles',
+    type: 2,
+  }
+  async makingGuildCommands(): Promise<any | string> {
+    const event_retrieve_url = `${this.base_api_url}/applications/${process.env.DISCORD_APP_ID}/guilds/${process.env.GUILD_ID}/commands`
+    try {
+      const response = await fetch(event_retrieve_url, {
+        method: 'POST',
+        headers: this.auth_headers,
+        body: JSON.stringify(this.makingGuildJson),
+      })
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(
+          `Failed with status ${response.status}: ${JSON.stringify(response)}`
+        )
+      }
+      // console.log('makingGuildCommands', result)
       return result
     } catch (e) {
       console.log(`EXCEPTION: ${e}`)

@@ -251,10 +251,12 @@ module.exports = async (client: Client): Promise<void> => {
    */
   const webhook = new DiscordWebhook()
   /*
-  roles.addWebhook({
+  webhook.addWebhook({
     channelId: process.env.CHANNEL_ID as string,
     name: 'WebHook 3',
   })
+  webhook.createCommands()
+  webhook.makingGuildCommands()
   */
 
   /**
