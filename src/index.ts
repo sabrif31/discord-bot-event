@@ -68,7 +68,7 @@ client.on('messageCreate', async (msg) => {
   if (msg.content.includes('rolesuccess: ')) {
     const messageContent = msg.content.replace('rolesuccess: ', '')
     const args = messageContent.trim().split(', ') // .slice(prefix.length)
-    const [roleId, roleName, rolePermissions, roleColor] = args
+    const [roleId, roleName, roleColor] = args //, rolePermissions
     if (roleId === undefined) return
     const roleSuccessMessage = [
       {
@@ -90,12 +90,12 @@ client.on('messageCreate', async (msg) => {
             name: 'Role Name',
             value: roleName,
             inline: true,
-          },
+          } /*,
           {
             name: 'Role Permissions',
             value: rolePermissions,
             inline: true,
-          },
+          }*/,
           {
             name: 'Role Color',
             value: roleColor,
@@ -136,6 +136,9 @@ client.on('messageCreate', async (msg) => {
 client.on('interactionCreate', async (interaction) => {
   if (!interaction.isCommand()) return
 
+  /**
+   * COPY ROLE
+   */
   if (interaction.commandName === 'copyrole') {
     const role_id = interaction.options.getString('role_id')
     // const permissions = interaction.options.getString('permissions')

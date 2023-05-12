@@ -170,7 +170,7 @@ class CronBot {
           embeds: [
             {
               title: 'Event',
-              description: '**Événements pour les 14 prochains jours**',
+              description: '**Événements pour les 7 prochains jours**',
               color: 500,
               fields,
             },
@@ -255,9 +255,9 @@ module.exports = async (client: Client): Promise<void> => {
     channelId: process.env.CHANNEL_ID as string,
     name: 'WebHook 3',
   })
-  webhook.createCommands()
   webhook.makingGuildCommands()
   */
+  webhook.createCommands()
 
   /**
    * CRON EVENTS

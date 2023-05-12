@@ -47,7 +47,7 @@ class DiscordWebhook {
   }
 
   // https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
-  json = {
+  copyRoleJson = {
     name: 'copyrole',
     type: 1,
     description: 'Duplicate a specific role',
@@ -92,7 +92,51 @@ class DiscordWebhook {
       },
     ],
   }
-
+  rockAndRoll = {
+    name: '/rock',
+    type: 1,
+    description: 'Date et heure de la prochaine répète !',
+    options: [
+      {
+        name: 'rock_date',
+        description: 'exemple: 12/05/2023 21:00',
+        type: 3,
+        required: true,
+      },
+      // {
+      //   name: 'permissions',
+      //   description: 'The role permission at duplicate',
+      //   type: 3,
+      //   required: true,
+      // },
+      // {
+      //   name: 'role_name',
+      //   description: 'New role name',
+      //   type: 3,
+      //   required: true,
+      // },
+      // {
+      //   name: 'role_color',
+      //   description: 'The role color at duplicate',
+      //   type: 3,
+      //   required: true,
+      //   choices: [
+      //     {
+      //       name: 'Blue',
+      //       value: '2123412',
+      //     },
+      //     {
+      //       name: 'Red',
+      //       value: '2123412',
+      //     },
+      //     {
+      //       name: 'Purple',
+      //       value: '2123412',
+      //     },
+      //   ],
+      // },
+    ],
+  }
   // This is an example CHAT_INPUT or Slash Command, with a type of 1
   async createCommands(): Promise<any | string> {
     const event_retrieve_url = `${this.base_api_url}/applications/${process.env.DISCORD_APP_ID}/commands`
@@ -100,7 +144,7 @@ class DiscordWebhook {
       const response = await fetch(event_retrieve_url, {
         method: 'POST',
         headers: this.auth_headers,
-        body: JSON.stringify(this.json),
+        body: JSON.stringify(this.rockAndRoll),
       })
       const result = await response.json()
       if (!response.ok) {
